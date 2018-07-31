@@ -49,5 +49,12 @@ namespace Donatello.Services
             model.Columns.Add(column);
             return model;
         }
+
+        public void AddBoard(NewBoard viewModel)
+        {
+            dbContext.Boards.Add(new Models.Board { Title = viewModel.Title });
+
+            dbContext.SaveChanges();
+        }
     }
 }

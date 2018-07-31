@@ -23,5 +23,18 @@ namespace Donatello.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(NewBoard viewModel) 
+        {
+            boardService.AddBoard(viewModel);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
