@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Donatello.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class HomeController : Controller
     {
         private readonly BoardService boardService;

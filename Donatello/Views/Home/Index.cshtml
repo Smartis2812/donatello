@@ -1,4 +1,5 @@
-﻿@model Donatello.ViewModels.BoardList
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model Donatello.ViewModels.BoardList
 @{
     ViewData["Title"] = "Index";
 }
@@ -6,7 +7,7 @@
 <div class="container">
     <div class="row">
         <h2>Boards</h2>
-        <a href="/home/create" class="waves-effect waves-light btn">New Board</a>
+        <a asp-action="Create" asp-controller="Home" class="waves-effect waves-light btn">New Board</a>
     </div>
     <div class="row">
         @foreach (var board in Model.Boards)
