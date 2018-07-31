@@ -1,4 +1,5 @@
-﻿using Donatello.ViewModels;
+﻿using Donatello.Infrastructure;
+using Donatello.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,17 +9,22 @@ namespace Donatello.Services
 {
     public class BoardService
     {
+        private readonly DonatelloContext dbContext;
+
+        public BoardService(DonatelloContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
+
         public BoardList ListBoards()
         {
             var model = new BoardList();
 
-            var board = new BoardList.Board();
-            board.Title = "Matt's Board";
-            model.Boards.Add(board);
+            foreach (var board in dbContext.Boards)
+            {
+                model.Boards.Add(new BoardList.Board { Title = board.Title });
+            }
 
-            var anotherBoard = new BoardList.Board();
-            anotherBoard.Title = "Another Board";
-            model.Boards.Add(anotherBoard);
             return model;
         }
 
