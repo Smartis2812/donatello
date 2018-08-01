@@ -1,0 +1,16 @@
+﻿@model Donatello.ViewModels.AddCard
+@{
+    ViewData["Title"] = "Add new Card";
+}
+
+
+<div class="container">
+    <div class="row">
+        <h2>Add Card</h2>
+        <form asp-action="AddCard" asp-controller="Board">
+            <label asp-for="Contents"></label>
+            <input type="text" asp-for="Contents" />
+            <button type="submit" class="btn">Add it!</button>
+        </form>
+    </div>
+</div>

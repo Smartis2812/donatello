@@ -1,9 +1,16 @@
 ﻿@model Donatello.ViewModels.BoardView
 @{
-    ViewData["Title"] = "Board View";
+    ViewData["Title"] = @Model.Title;
 }
 
 <div class="container">
+    <div class="row">
+        <h2>@Model.Title</h2>
+        <a asp-controller="Board"
+           asp-action="AddCard"
+           asp-route-id="@Model.Id" class="waves-effect waves-light btn">Add Card</a>
+    </div>
+
     <div class="row">
         @foreach (var column in Model.Columns)
         {

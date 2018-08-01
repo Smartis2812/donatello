@@ -17,6 +17,8 @@ namespace Donatello.Services
             this.dbContext = dbContext;
         }
 
+        /// Board
+
         public BoardList ListBoards()
         {
             var model = new BoardList();
@@ -34,19 +36,24 @@ namespace Donatello.Services
             var model = new BoardView();
 
             var board = dbContext.Boards
-                .Include(b => b.Columns)    // Init Lazy Loading of Relation
+                .Include(b => b.Columns)    // Init Lazy Loading of related Table
                 .ThenInclude(c => c.Cards)
                 .SingleOrDefault(x => x.Id == id);
+
+            model.Id = board.Id;
+            model.Title = board.Title;
 
             foreach (var item in board.Columns)
             {
                 var modelColumn = new BoardView.Column();
                 modelColumn.Title = item.Title;
-
+                modelColumn.Id = item.Id;
+                
                 foreach (var card in item.Cards)
                 {
                     var modelCard = new BoardView.Card();
                     modelCard.Content = card.Contents;
+                    modelCard.Id = card.Id;
                     modelColumn.Cards.Add(modelCard);
                 }
 
@@ -55,10 +62,29 @@ namespace Donatello.Services
 
             return model;
         }
-
+        
         public void AddBoard(NewBoard viewModel)
         {
             dbContext.Boards.Add(new Models.Board { Title = viewModel.Title });
+
+            dbContext.SaveChanges();
+        }
+
+        /// Cards
+        
+        public void AddCard(AddCard viewModel)
+        {
+            var board = dbContext.Boards.Include(b => b.Columns).SingleOrDefault(x => x.Id == viewModel.Id);
+
+            // If there is no Column on the Board, create one
+            var firstColumn = board.Columns.FirstOrDefault();
+            if (firstColumn == null)
+            {                
+                firstColumn = new Models.Column { Title = "ToDo" };
+                board.Columns.Add(firstColumn);
+            }
+
+            firstColumn.Cards.Add(new Models.Card { Contents = viewModel.Contents });
 
             dbContext.SaveChanges();
         }

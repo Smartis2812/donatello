@@ -22,5 +22,18 @@ namespace Donatello.Controllers
             BoardView model = boardService.GetBoard(id);
             return View(model);
         }
+
+        public IActionResult AddCard(int id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddCard(AddCard viewModel)
+        {
+            boardService.AddCard(viewModel);
+
+            return RedirectToAction(nameof(Index), new { id = viewModel.Id });
+        }
     }
 }

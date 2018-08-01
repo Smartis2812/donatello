@@ -10,6 +10,18 @@
     </script>
 </head>
 <body>
+
+    <nav>
+        <div class="nav-wrapper lime darken-4">
+            <a href="#" class="brand-logo center ">Donatello</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li>
+                    <a asp-controller="Home" asp-action="Index">Boards</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
     <div>
         @RenderBody()
     </div>
