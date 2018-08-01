@@ -9,6 +9,7 @@ namespace Donatello.ViewModels
     {
         public List<Board> Boards { get; set; } = new List<Board>();        // Nested Classes        public class Board
         {
+            public int Id { get; set; }
             public string Title { get; set; }
         }
     }
